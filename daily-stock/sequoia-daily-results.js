@@ -1,5 +1,5 @@
 window.SEQUOIA_DAILY_RESULTS = {
-  "generatedAt": "2026-07-04T20:43:07+08:00",
+  "generatedAt": "2026-07-04T21:32:59+08:00",
   "reportPath": "E:/我的文档/股票分析/sequoia-x/LATEST.md",
   "csvPath": "E:/我的文档/股票分析/sequoia-x/latest_all_stocks_analysis.csv",
   "report": {
@@ -10,13 +10,13 @@ window.SEQUOIA_DAILY_RESULTS = {
       {
         "name": "MaVolumeStrategy",
         "label": "均线放量",
-        "summary": "MaVolumeStrategy：候选 65 只，当日数据 62 只，展示 Top 5",
+        "summary": "MaVolumeStrategy：候选 72 只，当日数据 72 只，展示 Top 5",
         "symbols": [
           "300018",
           "688311",
+          "688636",
           "688270",
-          "300745",
-          "002472"
+          "603638"
         ],
         "items": [
           {
@@ -54,6 +54,22 @@ window.SEQUOIA_DAILY_RESULTS = {
           {
             "strategy": "MaVolumeStrategy",
             "strategyLabel": "均线放量",
+            "code": "688636",
+            "name": "智明达",
+            "reason": "5日均线上穿20日均线，且成交量大于20日均量1.5倍。",
+            "date": "2026-07-03",
+            "open": "118.26",
+            "high": "137.63",
+            "low": "117.49",
+            "close": "134.95",
+            "changePct": "14.20%",
+            "volumeRatio": "3.36",
+            "turnover": "5.42 亿",
+            "plan": "参考买入 134.95；跌破 117.49 视为信号失效，硬止损参考 124.15；首次减仓 151.14 附近减 1/3，第二次减仓 161.94 附近再减 1/3；收盘跌破20日线或放量启动后3个交易日不能继续走强，退出。"
+          },
+          {
+            "strategy": "MaVolumeStrategy",
+            "strategyLabel": "均线放量",
             "code": "688270",
             "name": "ST臻镭",
             "reason": "5日均线上穿20日均线，且成交量大于20日均量1.5倍。",
@@ -70,41 +86,25 @@ window.SEQUOIA_DAILY_RESULTS = {
           {
             "strategy": "MaVolumeStrategy",
             "strategyLabel": "均线放量",
-            "code": "300745",
-            "name": "欣锐科技",
+            "code": "603638",
+            "name": "艾迪精密",
             "reason": "5日均线上穿20日均线，且成交量大于20日均量1.5倍。",
             "date": "2026-07-03",
-            "open": "43.86",
-            "high": "50.51",
-            "low": "43.86",
-            "close": "48.24",
-            "changePct": "11.32%",
-            "volumeRatio": "2.87",
-            "turnover": "10.43 亿",
-            "plan": "参考买入 48.24；跌破 43.86 视为信号失效，硬止损参考 44.38；首次减仓 54.02 附近减 1/3，第二次减仓 57.88 附近再减 1/3；收盘跌破20日线或放量启动后3个交易日不能继续走强，退出。"
-          },
-          {
-            "strategy": "MaVolumeStrategy",
-            "strategyLabel": "均线放量",
-            "code": "002472",
-            "name": "双环传动",
-            "reason": "5日均线上穿20日均线，且成交量大于20日均量1.5倍。",
-            "date": "2026-07-03",
-            "open": "230.33",
-            "high": "247.21",
-            "low": "227.28",
-            "close": "247.21",
-            "changePct": "9.99%",
-            "volumeRatio": "1.69",
-            "turnover": "34.12 亿",
-            "plan": "参考买入 247.21；跌破 227.28 视为信号失效，硬止损参考 227.44；首次减仓 276.88 附近减 1/3，第二次减仓 296.66 附近再减 1/3；收盘跌破20日线或放量启动后3个交易日不能继续走强，退出。"
+            "open": "123.90",
+            "high": "133.28",
+            "low": "120.39",
+            "close": "132.24",
+            "changePct": "7.85%",
+            "volumeRatio": "3.85",
+            "turnover": "15.96 亿",
+            "plan": "参考买入 132.24；跌破 120.39 视为信号失效，硬止损参考 121.66；首次减仓 148.11 附近减 1/3，第二次减仓 158.69 附近再减 1/3；收盘跌破20日线或放量启动后3个交易日不能继续走强，退出。"
           }
         ]
       },
       {
         "name": "TurtleTradeStrategy",
         "label": "海龟突破",
-        "summary": "TurtleTradeStrategy：候选 140 只，当日数据 124 只，展示 Top 5",
+        "summary": "TurtleTradeStrategy：候选 130 只，当日数据 129 只，展示 Top 5",
         "symbols": [
           "300018",
           "300129",
@@ -212,7 +212,7 @@ window.SEQUOIA_DAILY_RESULTS = {
       {
         "name": "UptrendLimitDownStrategy",
         "label": "趋势反包",
-        "summary": "UptrendLimitDownStrategy：候选 4 只，当日数据 3 只，展示 Top 3",
+        "summary": "UptrendLimitDownStrategy：候选 3 只，当日数据 3 只，展示 Top 3",
         "symbols": [
           "601678",
           "688689",
@@ -272,7 +272,7 @@ window.SEQUOIA_DAILY_RESULTS = {
       {
         "name": "RpsBreakoutStrategy",
         "label": "RPS突破",
-        "summary": "RpsBreakoutStrategy：候选 94 只，当日数据 94 只，展示 Top 5",
+        "summary": "RpsBreakoutStrategy：候选 96 只，当日数据 96 只，展示 Top 5",
         "symbols": [
           "301379",
           "688017",
@@ -407,6 +407,22 @@ window.SEQUOIA_DAILY_RESULTS = {
       {
         "strategy": "MaVolumeStrategy",
         "strategyLabel": "均线放量",
+        "code": "688636",
+        "name": "智明达",
+        "reason": "5日均线上穿20日均线，且成交量大于20日均量1.5倍。",
+        "date": "2026-07-03",
+        "open": "118.26",
+        "high": "137.63",
+        "low": "117.49",
+        "close": "134.95",
+        "changePct": "14.20%",
+        "volumeRatio": "3.36",
+        "turnover": "5.42 亿",
+        "plan": "参考买入 134.95；跌破 117.49 视为信号失效，硬止损参考 124.15；首次减仓 151.14 附近减 1/3，第二次减仓 161.94 附近再减 1/3；收盘跌破20日线或放量启动后3个交易日不能继续走强，退出。"
+      },
+      {
+        "strategy": "MaVolumeStrategy",
+        "strategyLabel": "均线放量",
         "code": "688270",
         "name": "ST臻镭",
         "reason": "5日均线上穿20日均线，且成交量大于20日均量1.5倍。",
@@ -423,34 +439,18 @@ window.SEQUOIA_DAILY_RESULTS = {
       {
         "strategy": "MaVolumeStrategy",
         "strategyLabel": "均线放量",
-        "code": "300745",
-        "name": "欣锐科技",
+        "code": "603638",
+        "name": "艾迪精密",
         "reason": "5日均线上穿20日均线，且成交量大于20日均量1.5倍。",
         "date": "2026-07-03",
-        "open": "43.86",
-        "high": "50.51",
-        "low": "43.86",
-        "close": "48.24",
-        "changePct": "11.32%",
-        "volumeRatio": "2.87",
-        "turnover": "10.43 亿",
-        "plan": "参考买入 48.24；跌破 43.86 视为信号失效，硬止损参考 44.38；首次减仓 54.02 附近减 1/3，第二次减仓 57.88 附近再减 1/3；收盘跌破20日线或放量启动后3个交易日不能继续走强，退出。"
-      },
-      {
-        "strategy": "MaVolumeStrategy",
-        "strategyLabel": "均线放量",
-        "code": "002472",
-        "name": "双环传动",
-        "reason": "5日均线上穿20日均线，且成交量大于20日均量1.5倍。",
-        "date": "2026-07-03",
-        "open": "230.33",
-        "high": "247.21",
-        "low": "227.28",
-        "close": "247.21",
-        "changePct": "9.99%",
-        "volumeRatio": "1.69",
-        "turnover": "34.12 亿",
-        "plan": "参考买入 247.21；跌破 227.28 视为信号失效，硬止损参考 227.44；首次减仓 276.88 附近减 1/3，第二次减仓 296.66 附近再减 1/3；收盘跌破20日线或放量启动后3个交易日不能继续走强，退出。"
+        "open": "123.90",
+        "high": "133.28",
+        "low": "120.39",
+        "close": "132.24",
+        "changePct": "7.85%",
+        "volumeRatio": "3.85",
+        "turnover": "15.96 亿",
+        "plan": "参考买入 132.24；跌破 120.39 视为信号失效，硬止损参考 121.66；首次减仓 148.11 附近减 1/3，第二次减仓 158.69 附近再减 1/3；收盘跌破20日线或放量启动后3个交易日不能继续走强，退出。"
       },
       {
         "strategy": "TurtleTradeStrategy",
@@ -677,23 +677,23 @@ window.SEQUOIA_DAILY_RESULTS = {
     "latestDataDates": [
       {
         "date": "2026-07-03",
-        "count": 4927
+        "count": 5125
       },
       {
         "date": "2026-07-02",
-        "count": 215
+        "count": 52
       },
       {
         "date": "2026-07-01",
-        "count": 44
+        "count": 13
       },
       {
         "date": "2026-06-26",
-        "count": 6
+        "count": 5
       },
       {
         "date": "2026-06-30",
-        "count": 6
+        "count": 3
       },
       {
         "date": "2026-06-29",

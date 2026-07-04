@@ -166,7 +166,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Update the static Sequoia-X web results data.")
     parser.add_argument("--report", default="sequoia-x/LATEST.md")
     parser.add_argument("--csv", default="sequoia-x/latest_all_stocks_analysis.csv")
-    parser.add_argument("--output", default="optical-module-report-page/sequoia-daily-results.js")
+    parser.add_argument("--output", default="daily-stock/sequoia-daily-results.js")
     args = parser.parse_args()
 
     payload = build_payload(Path(args.report), Path(args.csv))

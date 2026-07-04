@@ -67,7 +67,7 @@ try {
         & $Python $WebUpdateScript `
             "--report" (Join-Path $OutputRoot "LATEST.md") `
             "--csv" (Join-Path $OutputRoot "latest_all_stocks_analysis.csv") `
-            "--output" (Join-Path $PSScriptRoot "optical-module-report-page\sequoia-daily-results.js")
+            "--output" (Join-Path $PSScriptRoot "daily-stock\sequoia-daily-results.js")
         if ($LASTEXITCODE -ne 0) {
             throw "网页结果数据更新失败，退出码：$LASTEXITCODE"
         }
@@ -78,7 +78,7 @@ try {
     Write-Host ("全量CSV：{0}" -f (Join-Path $ReportsOut (Split-Path -Leaf $CsvPath)))
     Write-Host ("最新日报快捷入口：{0}" -f (Join-Path $OutputRoot "LATEST.md"))
     Write-Host ("最新CSV快捷入口：{0}" -f (Join-Path $OutputRoot "latest_all_stocks_analysis.csv"))
-    Write-Host ("网页结果数据：{0}" -f (Join-Path $PSScriptRoot "optical-module-report-page\sequoia-daily-results.js"))
+    Write-Host ("网页结果数据：{0}" -f (Join-Path $PSScriptRoot "daily-stock\sequoia-daily-results.js"))
 }
 finally {
     Pop-Location

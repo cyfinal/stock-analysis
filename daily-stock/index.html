@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <title>Sequoia-X 每日选股分析</title>
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<main>
+  <header class="hero">
+    <div class="eyebrow">Daily Stock Signals</div>
+    <h1>Sequoia-X 每日选股分析</h1>
+    <p class="lead">这里只展示策略引擎每天生成的选股结果、全市场覆盖、命中策略和重点股票，不再混入产业链研究内容。</p>
+    <div class="actions">
+      <a class="button primary" href="../sequoia/LATEST.md">查看 Markdown 日报</a>
+      <a class="button" href="../sequoia/latest_all_stocks_analysis.csv">下载全量 CSV</a>
+      <a class="button" href="../">返回首页</a>
+    </div>
+  </header>
+
+  <section>
+    <div class="split-head">
+      <div>
+        <div class="eyebrow" style="color:#175cd3">SEQUOIA-X OUTPUT</div>
+        <h2>最新日报概览</h2>
+        <p class="small" id="sequoia-status">正在加载最新日报数据...</p>
+      </div>
+    </div>
+    <div id="sequoia-summary" class="grid"></div>
+  </section>
+
+  <section>
+    <h2>策略分布</h2>
+    <div id="sequoia-strategies"></div>
+  </section>
+
+  <section>
+    <h2>重点展示股票</h2>
+    <div id="sequoia-picks" class="pick-list"></div>
+    <p class="small">说明：价格口径沿用 Sequoia-X 策略引擎输出，可能是复权/策略计算价。</p>
+  </section>
+</main>
+
+<script src="./sequoia-daily-results.js"></script>
+<script>
+(function () {
+  const data = window.SEQUOIA_DAILY_RESULTS;
+  const status = document.getElementById("sequoia-status");
+  const summary = document.getElementById("sequoia-summary");
+  const strategies = document.getElementById("sequoia-strategies");
+  const picks = document.getElementById("sequoia-picks");
+
+  function text(value, fallback) {
+    return value === undefined || value === null || value === "" ? fallback : value;
+  }
+
+  function escapeHtml(value) {
+    return String(value || "").replace(/[&<>"']/g, function (char) {
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[char];
+    });
+  }
+
+  function metric(label, value, note) {
+    return '<div class="card"><span class="label">' + label + '</span><span class="metric">' + value + '</span><span class="label">' + note + '</span></div>';
+  }
+
+  if (!data || !data.report) {
+    status.textContent = "暂无 Sequoia-X 日报数据。请先运行 ./run_sequoia_x_daily.ps1。";
+    summary.innerHTML = '<div class="empty">未找到 sequoia-daily-results.js 数据文件。</div>';
+    return;
+  }
+
+  const report = data.report;
+  const csv = data.csvSummary || {};
+  const topDates = (csv.latestDataDates || []).slice(0, 3).map(function (item) {
+    return item.date + "：" + item.count + "只";
+  }).join("；");
+
+  status.textContent = "最新报告日期：" + text(report.reportDate, "-") + "；网页数据生成时间：" + text(data.generatedAt, "-");
+  summary.innerHTML = [
+    metric("报告日期", text(report.reportDate, "-"), "每日脚本自动更新"),
+    metric("去重命中", text(csv.hitStocks, "0") + "只", "全量 CSV 命中股票数"),
+    metric("展示项", text(report.totalItems, "0只"), "按策略 Top 展示，含重复命中"),
+    metric("全市场覆盖", text(csv.rows, "0") + "只", topDates || "暂无日期分布")
+  ].join("");
+
+  const counts = csv.strategyHitCounts || [];
+  if (counts.length) {
+    strategies.innerHTML = '<table><tr><th>策略</th><th class="num">命中数</th></tr>' +
+      counts.map(function (item) {
+        return '<tr><td><b>' + escapeHtml(item.label) + '</b><br><span class="small">' + escapeHtml(item.name) + '</span></td><td class="num">' + item.count + '</td></tr>';
+      }).join("") + '</table>';
+  } else {
+    strategies.innerHTML = '<div class="empty">暂无策略命中。</div>';
+  }
+
+  const items = report.items || [];
+  if (!items.length) {
+    picks.innerHTML = '<div class="empty">暂无展示股票。</div>';
+    return;
+  }
+
+  picks.innerHTML = items.map(function (item) {
+    return '<article class="pick">' +
+      '<div class="pick-title"><span>' + escapeHtml(item.code) + ' ' + escapeHtml(item.name) + '</span><span class="tag info">' + escapeHtml(item.strategyLabel) + '</span></div>' +
+      '<div class="pick-meta"><span class="tag pos">收 ' + escapeHtml(text(item.close, "-")) + '</span><span class="tag warn">' + escapeHtml(text(item.changePct, "-")) + '</span><span class="tag info">量比 ' + escapeHtml(text(item.volumeRatio, "-")) + '</span><span class="tag info">成交额 ' + escapeHtml(text(item.turnover, "-")) + '</span></div>' +
+      '<p class="small"><b>理由：</b>' + escapeHtml(item.reason) + '</p>' +
+      '<p class="small"><b>持有/减仓：</b>' + escapeHtml(text(item.plan, "查看 Markdown 日报")) + '</p>' +
+      '</article>';
+  }).join("");
+})();
+</script>
+</body>
+</html>

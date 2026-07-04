@@ -7,7 +7,9 @@
 - `sequoia-x-engine/`：完整 Sequoia-X 选股策略引擎，包含策略代码、数据引擎、日报脚本、全市场导出脚本、回测脚本和测试。
 - `sequoia-x/`：最新日报和全市场股票分析结果的快捷输出目录。
 - `run_sequoia_x_daily.ps1`：从本仓库内部运行 Sequoia-X，并同步最新结果到 `sequoia-x/`。
-- `optical-module-report-page/`：光模块报告网页发布版。
+- `daily-stock/`：每日 Sequoia-X 选股分析网页。
+- `ai-hardware/`：AI 硬件产业链每日分析网页，由原光模块报告扩展而来。
+- `optical-module-report-page/`：旧光模块页面兼容入口，会跳转到 `ai-hardware/`。
 - `中国光模块产业投资策略_2026-06-13.html`：光模块产业投资策略报告。
 - `中国光模块产业与龙头投资策略_深度版_2026-06-13.html`：光模块产业深度版报告。
 
@@ -41,9 +43,9 @@ cd E:\我的文档\股票分析
 - `sequoia-x\latest_all_stocks_analysis.csv`：最新全市场股票分析。
 - `sequoia-x\reports\YYYY-MM-DD.md`：按日期保存的日报。
 - `sequoia-x\reports\YYYY-MM-DD_all_stocks_analysis.csv`：按日期保存的全市场 CSV。
-- `optical-module-report-page\sequoia-daily-results.js`：网页首页每日选股结果数据。
+- `daily-stock\sequoia-daily-results.js`：每日选股网页数据。
 
-每日脚本会在生成日报和 CSV 后自动刷新网页数据文件。提交并推送到 GitHub 后，GitHub Pages 页面会展示最新 Sequoia-X 选股结果。
+每日脚本会在生成日报和 CSV 后自动刷新每日选股网页数据文件。提交并推送到 GitHub 后，GitHub Pages 页面会展示最新 Sequoia-X 选股结果；AI 硬件产业链分析在独立页面维护。
 
 ## GitHub 提交规则
 

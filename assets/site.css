@@ -1,0 +1,287 @@
+:root {
+  --navy: #0b1f33;
+  --blue: #175cd3;
+  --green: #067647;
+  --amber: #b54708;
+  --red: #b42318;
+  --gray: #667085;
+  --line: #d9e2ec;
+  --bg: #f2f5f8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #17202a;
+  font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+  line-height: 1.66;
+}
+
+main {
+  max-width: 1280px;
+  margin: 28px auto;
+  padding: 0 20px 56px;
+}
+
+header,
+section,
+.panel {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgba(16, 42, 67, .05);
+  margin-bottom: 18px;
+  padding: 26px 30px;
+}
+
+header.hero {
+  background: linear-gradient(135deg, #07192b, #153f6b);
+  border: 0;
+  color: #fff;
+}
+
+.eyebrow {
+  color: #b9d5ef;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 34px;
+  line-height: 1.22;
+  margin: 8px 0 12px;
+}
+
+h2 {
+  color: var(--navy);
+  font-size: 22px;
+  margin: 0 0 14px;
+}
+
+h3 {
+  font-size: 17px;
+  margin: 18px 0 6px;
+}
+
+a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 10px 0;
+  width: 100%;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--line);
+  padding: 10px 9px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: #f7f9fc;
+  color: #344054;
+  white-space: nowrap;
+}
+
+.num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.lead {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.small,
+.meta {
+  color: var(--gray);
+  font-size: 12px;
+}
+
+header .meta {
+  color: #c6d8ea;
+}
+
+.grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid.two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid.three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.darkcard {
+  background: rgba(255, 255, 255, .08);
+  border-color: rgba(255, 255, 255, .18);
+}
+
+.metric {
+  display: block;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.label {
+  color: var(--gray);
+  display: block;
+  font-size: 12px;
+}
+
+.darkcard .label,
+.darkcard .metric {
+  color: #fff;
+}
+
+.tag {
+  border-radius: 999px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 1px 4px 1px 0;
+  padding: 2px 8px;
+}
+
+.pos {
+  background: #ecfdf3;
+  color: var(--green);
+}
+
+.warn {
+  background: #fffaeb;
+  color: var(--amber);
+}
+
+.neg {
+  background: #fef3f2;
+  color: var(--red);
+}
+
+.info {
+  background: #eff8ff;
+  color: var(--blue);
+}
+
+.button {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  display: inline-block;
+  font-weight: 700;
+  padding: 9px 13px;
+}
+
+.button.primary {
+  background: #eff8ff;
+  border-color: var(--blue);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.split-head {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.callout {
+  background: #f5f9ff;
+  border-left: 4px solid var(--blue);
+  margin: 13px 0;
+  padding: 13px 15px;
+}
+
+.riskbox {
+  background: #fff7f6;
+  border-left-color: var(--red);
+}
+
+.warnbox {
+  background: #fffbf3;
+  border-left-color: var(--amber);
+}
+
+.pick-list {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.pick {
+  background: #fbfdff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.pick-title {
+  display: flex;
+  font-weight: 800;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.pick-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+.empty {
+  background: #fafafa;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  color: var(--gray);
+  padding: 12px;
+}
+
+@media (max-width: 900px) {
+  .grid,
+  .grid.two,
+  .grid.three,
+  .pick-list {
+    grid-template-columns: 1fr;
+  }
+
+  header,
+  section,
+  .panel {
+    padding: 20px;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}
