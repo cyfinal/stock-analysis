@@ -1,5 +1,13 @@
-﻿**/.git/
+**/.git/
 **/.ssh/
 optical-module-report/
+sequoia-x-engine/.venv/
+sequoia-x-engine/data/*.db
+sequoia-x-engine/.pytest_cache/
+sequoia-x-engine/.hypothesis/
+sequoia-x-engine/__pycache__/
+sequoia-x-engine/**/__pycache__/
+sequoia-x-engine/*.egg-info/
 .DS_Store
 Thumbs.db
+sequoia-x-engine/.pytest-tmp/

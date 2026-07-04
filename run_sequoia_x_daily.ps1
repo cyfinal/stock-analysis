@@ -1,27 +1,33 @@
 ﻿[CmdletBinding()]
 param(
     [switch]$NoSyncLatest,
-    [string]$SequoiaRoot = "C:\Users\Admin\Documents\Codex\2026-06-28\sequoia-x-daily",
+    [string]$EngineRoot = "",
     [string]$OutputRoot = ""
 )
 
 $ErrorActionPreference = "Stop"
 
+if (-not $EngineRoot) {
+    $EngineRoot = Join-Path $PSScriptRoot "sequoia-x-engine"
+}
 if (-not $OutputRoot) {
     $OutputRoot = Join-Path $PSScriptRoot "sequoia-x"
 }
 
-$ReportsOut = Join-Path $OutputRoot "reports"
-New-Item -ItemType Directory -Force -Path $ReportsOut | Out-Null
-
-$Python = Join-Path $SequoiaRoot ".venv\Scripts\python.exe"
-if (-not (Test-Path -LiteralPath $Python)) {
-    throw "找不到 Sequoia-X Python 环境：$Python"
+if (-not (Test-Path -LiteralPath $EngineRoot)) {
+    throw "找不到 Sequoia-X 引擎目录：$EngineRoot"
 }
 
-$SourceReports = Join-Path $SequoiaRoot "reports"
+$Python = Join-Path $EngineRoot ".venv\Scripts\python.exe"
+if (-not (Test-Path -LiteralPath $Python)) {
+    throw "找不到 Sequoia-X Python 环境：$Python。请先运行：.\sequoia-x-engine\setup_env.ps1"
+}
 
-Push-Location $SequoiaRoot
+$ReportsOut = Join-Path $OutputRoot "reports"
+New-Item -ItemType Directory -Force -Path $ReportsOut | Out-Null
+$SourceReports = Join-Path $EngineRoot "reports"
+
+Push-Location $EngineRoot
 try {
     $ReportArgs = @("scripts\codex_daily_report.py", "--backfill-if-empty")
     if ($NoSyncLatest) {
