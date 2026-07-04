@@ -41,6 +41,9 @@ cd E:\我的文档\股票分析
 - `sequoia-x\latest_all_stocks_analysis.csv`：最新全市场股票分析。
 - `sequoia-x\reports\YYYY-MM-DD.md`：按日期保存的日报。
 - `sequoia-x\reports\YYYY-MM-DD_all_stocks_analysis.csv`：按日期保存的全市场 CSV。
+- `optical-module-report-page\sequoia-daily-results.js`：网页首页每日选股结果数据。
+
+每日脚本会在生成日报和 CSV 后自动刷新网页数据文件。提交并推送到 GitHub 后，GitHub Pages 页面会展示最新 Sequoia-X 选股结果。
 
 ## GitHub 提交规则
 

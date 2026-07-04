@@ -15,7 +15,8 @@ header{background:linear-gradient(135deg,#07192b,#153f6b);color:#fff;border:0}.e
 .tag{display:inline-block;border-radius:99px;padding:2px 8px;margin:1px 4px 1px 0;font-size:12px;font-weight:700}.pos{color:var(--green);background:#ecfdf3}.warn{color:var(--amber);background:#fffaeb}.neg{color:var(--red);background:#fef3f2}.info{color:var(--blue);background:#eff8ff}
 table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}th,td{text-align:left;vertical-align:top;padding:10px 9px;border-bottom:1px solid var(--line)}th{background:#f7f9fc;color:#344054;white-space:nowrap}.num{text-align:right;white-space:nowrap}.callout{padding:13px 15px;border-left:4px solid var(--blue);background:#f5f9ff;margin:13px 0}.riskbox{border-left-color:var(--red);background:#fff7f6}.warnbox{border-left-color:var(--amber);background:#fffbf3}
 ul,ol{padding-left:21px;margin:7px 0}a{color:var(--blue);text-decoration:none}.nowrap{white-space:nowrap}
-@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}header,section{padding:20px}table{display:block;overflow-x:auto}}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.sequoia-live{border-top:4px solid var(--blue)}.sequoia-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}.sequoia-actions{display:flex;gap:10px;flex-wrap:wrap}.button{display:inline-block;border:1px solid var(--line);border-radius:9px;padding:7px 11px;background:#fff;font-size:13px;font-weight:700}.button.primary{border-color:var(--blue);background:#eff8ff}.sequoia-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}.sequoia-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.pick{border:1px solid var(--line);border-radius:10px;padding:12px;background:#fbfdff}.pick-title{display:flex;justify-content:space-between;gap:8px;font-weight:800}.pick-meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.empty{color:var(--gray);padding:12px;border:1px dashed var(--line);border-radius:10px;background:#fafafa}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}.sequoia-kpis,.sequoia-list{grid-template-columns:1fr}header,section{padding:20px}table{display:block;overflow-x:auto}}@media(max-width:560px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body><main>
@@ -31,6 +32,26 @@ ul,ol{padding-left:21px;margin:7px 0}a{color:var(--blue);text-decoration:none}.n
     <div class="card darkcard"><span class="label">最容易炒过头</span><span class="metric">玻璃基板/电子布</span><span class="label">方向重要，但商业兑现时间差异极大</span></div>
   </div>
 </header>
+
+<section id="sequoia-daily" class="sequoia-live">
+  <div class="sequoia-head">
+    <div>
+      <div class="eyebrow" style="color:#175cd3">SEQUOIA-X DAILY STOCK PICKS</div>
+      <h2>每日 Sequoia-X 选股结果</h2>
+      <p class="small" id="sequoia-status">正在加载最新日报数据...</p>
+    </div>
+    <div class="sequoia-actions">
+      <a class="button primary" href="../sequoia/LATEST.md">查看 Markdown 日报</a>
+      <a class="button" href="../sequoia/latest_all_stocks_analysis.csv">下载全量 CSV</a>
+    </div>
+  </div>
+  <div id="sequoia-summary" class="sequoia-kpis"></div>
+  <h3>策略分布</h3>
+  <div id="sequoia-strategies"></div>
+  <h3>重点展示股票</h3>
+  <div id="sequoia-picks" class="sequoia-list"></div>
+  <p class="small">说明：本区块由每日脚本自动生成，价格口径沿用 Sequoia-X 策略引擎输出，可能是复权/策略计算价。</p>
+</section>
 
 <section>
 <h2>一、最新PM结论：高景气，更高估值，更严格买点</h2>
@@ -252,4 +273,72 @@ ul,ol{padding-left:21px;margin:7px 0}a{color:var(--blue);text-decoration:none}.n
 </ul>
 <p class="small">免责声明：本报告是公开信息研究，不构成针对个人的投资、法律或税务建议。高估值成长股可能发生大幅波动和本金损失。</p>
 </section>
+<script src="./sequoia-daily-results.js"></script>
+<script>
+(function () {
+  const data = window.SEQUOIA_DAILY_RESULTS;
+  const status = document.getElementById("sequoia-status");
+  const summary = document.getElementById("sequoia-summary");
+  const strategies = document.getElementById("sequoia-strategies");
+  const picks = document.getElementById("sequoia-picks");
+
+  function text(value, fallback) {
+    return value === undefined || value === null || value === "" ? fallback : value;
+  }
+
+  function metric(label, value, note) {
+    return '<div class="card"><span class="label">' + label + '</span><span class="metric">' + value + '</span><span class="label">' + note + '</span></div>';
+  }
+
+  function escapeHtml(value) {
+    return String(value || "").replace(/[&<>"']/g, function (char) {
+      return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[char];
+    });
+  }
+
+  if (!data || !data.report) {
+    status.textContent = "暂无 Sequoia-X 日报数据。请先运行 ./run_sequoia_x_daily.ps1。";
+    summary.innerHTML = '<div class="empty">未找到 sequoia-daily-results.js 数据文件。</div>';
+    return;
+  }
+
+  const report = data.report;
+  const csv = data.csvSummary || {};
+  const topDates = (csv.latestDataDates || []).slice(0, 3).map(function (item) {
+    return item.date + "：" + item.count + "只";
+  }).join("；");
+
+  status.textContent = "最新报告日期：" + text(report.reportDate, "-") + "；网页数据生成时间：" + text(data.generatedAt, "-");
+  summary.innerHTML = [
+    metric("报告日期", text(report.reportDate, "-"), "每日脚本自动更新"),
+    metric("去重命中", text(csv.hitStocks, "0") + "只", "全量 CSV 命中股票数"),
+    metric("展示项", text(report.totalItems, "0只"), "按策略 Top 展示，含重复命中"),
+    metric("全市场覆盖", text(csv.rows, "0") + "只", topDates || "暂无日期分布")
+  ].join("");
+
+  const counts = csv.strategyHitCounts || [];
+  if (counts.length) {
+    strategies.innerHTML = '<table><tr><th>策略</th><th class="num">命中数</th></tr>' +
+      counts.map(function (item) {
+        return '<tr><td><b>' + escapeHtml(item.label) + '</b><br><span class="small">' + escapeHtml(item.name) + '</span></td><td class="num">' + item.count + '</td></tr>';
+      }).join("") + '</table>';
+  } else {
+    strategies.innerHTML = '<div class="empty">暂无策略命中。</div>';
+  }
+
+  const items = report.items || [];
+  if (!items.length) {
+    picks.innerHTML = '<div class="empty">暂无展示股票。</div>';
+    return;
+  }
+  picks.innerHTML = items.map(function (item) {
+    return '<article class="pick">' +
+      '<div class="pick-title"><span>' + escapeHtml(item.code) + ' ' + escapeHtml(item.name) + '</span><span class="tag info">' + escapeHtml(item.strategyLabel) + '</span></div>' +
+      '<div class="pick-meta"><span class="tag pos">收 ' + escapeHtml(text(item.close, "-")) + '</span><span class="tag warn">' + escapeHtml(text(item.changePct, "-")) + '</span><span class="tag info">量比 ' + escapeHtml(text(item.volumeRatio, "-")) + '</span><span class="tag info">成交额 ' + escapeHtml(text(item.turnover, "-")) + '</span></div>' +
+      '<p class="small"><b>理由：</b>' + escapeHtml(item.reason) + '</p>' +
+      '<p class="small"><b>持有/减仓：</b>' + escapeHtml(text(item.plan, "查看 Markdown 日报")) + '</p>' +
+      '</article>';
+  }).join("");
+})();
+</script>
 </main></body></html>

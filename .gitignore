@@ -11,3 +11,4 @@ sequoia-x-engine/*.egg-info/
 .DS_Store
 Thumbs.db
 sequoia-x-engine/.pytest-tmp/
+scripts/__pycache__/

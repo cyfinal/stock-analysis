@@ -62,11 +62,23 @@ try {
     Copy-Item -LiteralPath $LatestReport.FullName -Destination (Join-Path $OutputRoot "LATEST.md") -Force
     Copy-Item -LiteralPath $CsvPath -Destination (Join-Path $OutputRoot "latest_all_stocks_analysis.csv") -Force
 
+    $WebUpdateScript = Join-Path $PSScriptRoot "scripts\update_sequoia_web_results.py"
+    if (Test-Path -LiteralPath $WebUpdateScript) {
+        & $Python $WebUpdateScript `
+            "--report" (Join-Path $OutputRoot "LATEST.md") `
+            "--csv" (Join-Path $OutputRoot "latest_all_stocks_analysis.csv") `
+            "--output" (Join-Path $PSScriptRoot "optical-module-report-page\sequoia-daily-results.js")
+        if ($LASTEXITCODE -ne 0) {
+            throw "网页结果数据更新失败，退出码：$LASTEXITCODE"
+        }
+    }
+
     Write-Host ("同步完成：{0}" -f $LatestReport.BaseName)
     Write-Host ("日报：{0}" -f (Join-Path $ReportsOut $LatestReport.Name))
     Write-Host ("全量CSV：{0}" -f (Join-Path $ReportsOut (Split-Path -Leaf $CsvPath)))
     Write-Host ("最新日报快捷入口：{0}" -f (Join-Path $OutputRoot "LATEST.md"))
     Write-Host ("最新CSV快捷入口：{0}" -f (Join-Path $OutputRoot "latest_all_stocks_analysis.csv"))
+    Write-Host ("网页结果数据：{0}" -f (Join-Path $PSScriptRoot "optical-module-report-page\sequoia-daily-results.js"))
 }
 finally {
     Pop-Location
